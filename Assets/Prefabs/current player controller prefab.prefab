@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 114052222465473756}
   - component: {fileID: 114012275297650578}
   - component: {fileID: 114950053414866930}
+  - component: {fileID: 114693681985963020}
   m_Layer: 0
   m_Name: current player controller prefab
   m_TagString: Player
@@ -561,13 +562,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805440892286032}
-  m_LocalRotation: {x: -0, y: -1, z: 0.00000017881392, w: 0}
-  m_LocalPosition: {x: 0, y: 1.3405857, z: 6.329607}
+  m_LocalRotation: {x: 0.00000013411044, y: -0.75961506, z: 0.00000013411044, w: -0.650373}
+  m_LocalPosition: {x: -8.46, y: 1.34, z: 1.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4589611209319392}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 155, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 180, y: -81.13898, z: 180}
 --- !u!4 &4589611209319392
 Transform:
   m_ObjectHideFlags: 1
@@ -1632,13 +1633,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9591de6bc6b72f47b8e8e048ed728bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpPrefab: {fileID: 1621165285898318, guid: 94c7cc2164da74148955729e2a9c5eac, type: 2}
   InvertSideLean: 0
   InvertFwdLean: 0
   MaxLean: 2
   LeanMode: 5
   MaxBrake: 0.5
   MaxJump: 5
-  JumpDelay: 2
+  MaxMass: 4
 --- !u!114 &114052222465473756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1663,13 +1665,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9591de6bc6b72f47b8e8e048ed728bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpPrefab: {fileID: 0}
   InvertSideLean: 1
   InvertFwdLean: 0
   MaxLean: 2
   LeanMode: 5
   MaxBrake: 0.5
   MaxJump: 5
-  JumpDelay: 2
+  MaxMass: 4
+--- !u!114 &114693681985963020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420395951812832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55718790e9442cb479f628318c1bc339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JumpPrefab: {fileID: 1621165285898318, guid: 94c7cc2164da74148955729e2a9c5eac, type: 2}
+  CartController: {fileID: 114055716240840518}
 --- !u!114 &114950053414866930
 MonoBehaviour:
   m_ObjectHideFlags: 1
