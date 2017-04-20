@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootWorth: 10
+  addThisMass: 0
 --- !u!23 &43539449
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -660,6 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootWorth: 10
+  addThisMass: 0
 --- !u!23 &201671717
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2226,6 +2228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootWorth: 10
+  addThisMass: 0
 --- !u!23 &1172787569
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2648,6 +2651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootWorth: 10
+  addThisMass: 0
 --- !u!23 &1372443765
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2848,41 +2852,10 @@ Prefab:
       propertyPath: m_Name
       value: Player Cart
       objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.630003
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 2.4100056
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -8.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0.071776986
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0.68371874
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.06787493
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.72302824
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 168.661
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005348386799478, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -93.20099
+    - target: {fileID: 54721571006567860, guid: 3f06c8d7b2b48ca4c945515f71356963,
+        type: 2}
+      propertyPath: m_Drag
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3f06c8d7b2b48ca4c945515f71356963, type: 2}
@@ -3257,6 +3230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootWorth: 10
+  addThisMass: 0
 --- !u!23 &1667573118
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3557,31 +3531,6 @@ Prefab:
       propertyPath: CartController
       value: 
       objectReference: {fileID: 1406055665}
-    - target: {fileID: 54772884580353498, guid: 39fe86f9562926c4db359d8437ba7573,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 145628760938081146, guid: 39fe86f9562926c4db359d8437ba7573,
-        type: 2}
-      propertyPath: m_EnableCollision
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 145628760938081146, guid: 39fe86f9562926c4db359d8437ba7573,
-        type: 2}
-      propertyPath: m_BreakForce
-      value: Infinity
-      objectReference: {fileID: 0}
-    - target: {fileID: 145628760938081146, guid: 39fe86f9562926c4db359d8437ba7573,
-        type: 2}
-      propertyPath: m_Spring
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 145628760938081146, guid: 39fe86f9562926c4db359d8437ba7573,
-        type: 2}
-      propertyPath: m_Damper
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39fe86f9562926c4db359d8437ba7573, type: 2}
   m_IsPrefabParent: 0
