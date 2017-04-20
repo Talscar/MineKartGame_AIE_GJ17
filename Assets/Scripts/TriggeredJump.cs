@@ -10,8 +10,10 @@ public class TriggeredJump : MonoBehaviour {
 
     private Rigidbody Rb;
 
-	// Use this for initialization
-	void Start () {
+    private bool IsJumping { get; set; }
+
+    // Use this for initialization
+    void Start () {
         Rb = GetComponent<Rigidbody>();
 	}
 	
@@ -23,14 +25,22 @@ public class TriggeredJump : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         // Not a jump trigger
-        if (CartController.IsJumping || col.gameObject.tag != "Jump")
+        if (IsJumping || col.gameObject.tag != "Jump")
             return;
 
         CartController.IsJumping = true;
+        IsJumping = true;
         Rb.AddRelativeForce(new Vector3(0, CartController.MassModifier * CartController.MaxJump, 0), ForceMode.Impulse);
 
         //Debug.Log("Hit Jump Trigger");
     }
 
+    void OnCollisionEnter()
+    {
+        // TODO: Filter Collisions for Rails
+        // Check we're on a ramp, then set Jumping false
+        CartController.IsJumping = false;
+        IsJumping = false;
+    }
    
 }
