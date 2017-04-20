@@ -5,13 +5,14 @@ using UnityEngine;
 public class loot : MonoBehaviour {
 
     public int lootWorth;
+    public int addThisMass;
 
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log("I collide with things");
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<Score>().AddScore(lootWorth);
+            other.gameObject.GetComponent<Score>().AddScore(lootWorth,addThisMass);
             Destroy(gameObject);
         }
     }
