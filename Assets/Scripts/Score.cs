@@ -11,8 +11,11 @@ public class Score : MonoBehaviour {
     private string scoretext;
     private Text text;
 
+    private Rigidbody rb;
 	// Use this for initialization
 	void Start () {
+        rb = GetComponent<Rigidbody>();
+
         text = scoretextDisplay.GetComponent<Text>();
         scoretext = "Score: " + currentScore;
         text.text = scoretext;
@@ -29,5 +32,6 @@ public class Score : MonoBehaviour {
     public void AddScore(int addscore)
     {
         currentScore = currentScore + addscore;
+        rb.mass++;
     }
 }
