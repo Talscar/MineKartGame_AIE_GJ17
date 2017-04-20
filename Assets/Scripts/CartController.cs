@@ -9,15 +9,23 @@ public class CartController : MonoBehaviour {
     public bool InvertFwdLean = false;
 
 
-    public float MaxLeanForce = 2;
-    public float MaxBrakeForce = 0.5f;
+    public float MaxLean = 2;
+    public ForceMode LeanMode = ForceMode.Acceleration;
+    public float MaxBrake = 0.5f;
+
+    public float MaxJump = 5;
+    public float JumpDelay = 2;
 
     private Rigidbody Rb { get; set; }
     
+    private float InitialDrag { get; set; }
+
+    private bool IsJumping;
 
 	// Use this for initialization
 	void Start () {
         Rb = GetComponent<Rigidbody>();
+        InitialDrag = Rb.drag;
 
 	}
 
@@ -32,8 +40,8 @@ public class CartController : MonoBehaviour {
 
 
         // Lean
-        var leanH = MaxLeanForce * Input.GetAxis("Horizontal");
-        var leanV = MaxLeanForce * Input.GetAxis("Vertical");
+        var leanH = MaxLean * Input.GetAxis("Horizontal");
+        var leanV = MaxLean * Input.GetAxis("Vertical");
 
         if (InvertSideLean) leanH *= -1;
         if (InvertFwdLean) leanV *= -1;
@@ -44,14 +52,44 @@ public class CartController : MonoBehaviour {
 
         Rb.AddForceAtPosition(forceDirn, forcePosn, ForceMode.Force);
 
+        if (leanH != 0 || leanV != 0)
+            Debug.Log("Lean H: " + leanH.ToString("N3") + " , V: " + leanV.ToString("N3"));
+
+
+
         // Brake
 
-        var brake = MaxBrakeForce * Input.GetAxis("Brake");
+        var brake = MaxBrake * Input.GetAxis("Brake");
 
-        Rb.drag = brake;
+        Rb.drag = Mathf.Max(InitialDrag, brake);
 
         if (brake != 0)
-            Debug.Log("Brake: " + brake);
+            Debug.Log("Brake: " + brake.ToString("N3"));
+
+
+        // Jump
+
+        var jump = Input.GetAxis("Jump");
+
+        if (jump >= 0.5 && !IsJumping)
+        {
+            IsJumping = true;
+
+            Rb.AddRelativeForce(new Vector3(0, Rb.mass * MaxJump, 0), ForceMode.Impulse);
+
+            Debug.Log("Hybrid says, \"Jump!\"");
+
+        }
+        
+
 	}
+
+    void OnCollisionEnter(Collision col)
+    {
+        // TODO: Filter Collisions for Rails
+        // Check we're on a ramp, then set Jumping false
+        IsJumping = false;
+
+    }
     
 }
