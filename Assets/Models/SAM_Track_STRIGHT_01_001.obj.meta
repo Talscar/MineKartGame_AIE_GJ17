@@ -12,6 +12,7 @@ ModelImporter:
     2300000: polySurface600
     3300000: polySurface600
     4300000: polySurface600
+    6400000: polySurface600
   materials:
     importMaterials: 1
     materialName: 0
