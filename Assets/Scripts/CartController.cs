@@ -5,6 +5,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CartController : MonoBehaviour {
 
+    public GameObject JumpPrefab;
+
+
     public bool InvertSideLean = false;
     public bool InvertFwdLean = false;
 
@@ -14,13 +17,18 @@ public class CartController : MonoBehaviour {
     public float MaxBrake = 0.5f;
 
     public float MaxJump = 5;
-    public float JumpDelay = 2;
 
-    private Rigidbody Rb { get; set; }
+    public float MaxMass = 4;
+
+    Rigidbody Rb { get; set; }
     
-    private float InitialDrag { get; set; }
+    public float MassModifier { get { return  Mathf.SmoothStep(0.5f, 2.0f, Rb.mass / MaxMass); } }
 
-    private bool IsJumping;
+    float InitialDrag { get; set; }
+
+    public bool IsJumping { get; set; }
+
+    public float CurrentBrake { get; protected set; }
 
 	// Use this for initialization
 	void Start () {
@@ -29,10 +37,29 @@ public class CartController : MonoBehaviour {
 
 	}
 
-    
+    void Update()
+    {
+        // Jump
+
+        var jump = Input.GetAxis("Jump");
+
+
+        if (jump >= 0.5 && !IsJumping)
+        {
+            //IsJumping = true;
+
+            //Rb.AddRelativeForce(new Vector3(0, MassModifier * MaxJump, 0), ForceMode.Impulse);
+
+            var trigger = Instantiate(JumpPrefab, transform.TransformPoint(new Vector3(0, 0, -3)), new Quaternion());
+            Destroy(trigger, 1000);
+
+            //Debug.Log("Hybrid says, \"Jump!\" @ " + transform.TransformPoint(new Vector3(0, 0, -4)) + " from " + transform.position);
+
+        }
+    }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
 
         // Check Velocity > 0 or DIE
         if (Rb.velocity.sqrMagnitude < float.Epsilon)
@@ -40,18 +67,19 @@ public class CartController : MonoBehaviour {
 
 
         // Lean
-        var leanH = MaxLean * Input.GetAxis("Horizontal");
-        var leanV = MaxLean * Input.GetAxis("Vertical");
+        var leanH = -MaxLean * MassModifier * Input.GetAxis("Horizontal");
+        var leanV = -MaxLean * MassModifier * Input.GetAxis("Vertical");
 
         if (InvertSideLean) leanH *= -1;
         if (InvertFwdLean) leanV *= -1;
 
-        var forcePosn = transform.TransformPoint(new Vector3(0, 1, 0)); // Half-unit above Centre-of-Mass
-        var forceDirn = transform.TransformDirection(new Vector3(leanH, 0, leanV)); // Left or Right based on input axis
+        var forcePosn = transform.TransformPoint(new Vector3(0, 1, 0));
+        var forceDirn = transform.TransformDirection(new Vector3(leanH, 0, 0));
 
 
+        Rb.AddRelativeTorque(new Vector3(leanV, 0, 0), ForceMode.Force);
         Rb.AddForceAtPosition(forceDirn, forcePosn, ForceMode.Force);
-
+        
         if (leanH != 0 || leanV != 0)
             Debug.Log("Lean H: " + leanH.ToString("N3") + " , V: " + leanV.ToString("N3"));
 
@@ -59,27 +87,15 @@ public class CartController : MonoBehaviour {
 
         // Brake
 
-        var brake = MaxBrake * Input.GetAxis("Brake");
+        CurrentBrake = MaxBrake * Input.GetAxis("Brake");
 
-        Rb.drag = Mathf.Max(InitialDrag, brake);
+        Rb.drag = Mathf.Max(InitialDrag, CurrentBrake);
 
-        if (brake != 0)
-            Debug.Log("Brake: " + brake.ToString("N3"));
+        if (CurrentBrake != 0)
+            Debug.Log("Brake: " + CurrentBrake.ToString("N3"));
 
 
-        // Jump
 
-        var jump = Input.GetAxis("Jump");
-
-        if (jump >= 0.5 && !IsJumping)
-        {
-            IsJumping = true;
-
-            Rb.AddRelativeForce(new Vector3(0, Rb.mass * MaxJump, 0), ForceMode.Impulse);
-
-            Debug.Log("Hybrid says, \"Jump!\"");
-
-        }
         
 
 	}
@@ -90,6 +106,15 @@ public class CartController : MonoBehaviour {
         // Check we're on a ramp, then set Jumping false
         IsJumping = false;
 
+    }
+
+
+    void OnCollisionStay(Collision col)
+    {
+    }
+
+    void OnCollisionExit(Collision col)
+    {
     }
     
 }

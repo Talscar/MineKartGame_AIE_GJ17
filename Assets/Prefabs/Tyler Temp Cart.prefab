@@ -780,11 +780,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9591de6bc6b72f47b8e8e048ed728bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvertSideLean: 1
+  InvertSideLean: 0
   InvertFwdLean: 0
-  MaxLeanForce: 5
+  MaxLean: 10
   LeanMode: 5
-  MaxBrakeForce: 0.2
+  MaxBrake: 0.5
+  MaxJump: 5
+  JumpDelay: 2
 --- !u!124 &124742822735664500
 Behaviour:
   m_ObjectHideFlags: 1
