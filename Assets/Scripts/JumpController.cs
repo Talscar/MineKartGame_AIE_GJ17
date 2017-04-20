@@ -11,7 +11,6 @@ public class JumpController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         TTL = TimeToLive;
-        Debug.Log("Started Jump Life");
     }
 	
 	// Update is called once per frame
@@ -20,8 +19,7 @@ public class JumpController : MonoBehaviour {
 
         if (TTL < 0)
         {
-            Destroy(this);
-            Debug.Log("Destroyed Jump");
+            Destroy(gameObject);
         }
 	}
 }
