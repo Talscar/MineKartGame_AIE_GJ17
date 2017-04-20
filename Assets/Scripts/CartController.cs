@@ -41,10 +41,10 @@ public class CartController : MonoBehaviour {
     {
         // Jump
 
-        var jump = Input.GetAxis("Jump");
+        var jump = Input.GetAxisRaw("Jump");
 
 
-        if (jump >= 0.5 && !IsJumping)
+        if (jump >= 0.5  && !IsJumping)
         {
             //IsJumping = true;
 
@@ -102,9 +102,7 @@ public class CartController : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        // TODO: Filter Collisions for Rails
-        // Check we're on a ramp, then set Jumping false
-        IsJumping = false;
+
 
     }
 
