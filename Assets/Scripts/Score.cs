@@ -29,9 +29,9 @@ public class Score : MonoBehaviour {
 
     }
 
-    public void AddScore(int addscore,int massToAdd)
+    public void AddScore(int addscore,float massToAdd)
     {
         currentScore = currentScore + addscore;
-        rb.mass = rb.mass + massToAdd;
+        rb.drag = rb.drag + massToAdd;
     }
 }

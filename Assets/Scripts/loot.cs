@@ -5,7 +5,7 @@ using UnityEngine;
 public class loot : MonoBehaviour {
 
     public int lootWorth;
-    public int addThisMass;
+    public float addThisMass;
 
     void OnTriggerEnter(Collider other)
     {
