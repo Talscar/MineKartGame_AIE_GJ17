@@ -77,8 +77,8 @@ public class CartController : MonoBehaviour {
         var forceDirn = transform.TransformDirection(new Vector3(leanH, 0, 0));
 
 
-        Rb.AddRelativeTorque(new Vector3(leanV, 0, 0), ForceMode.Force);
-        Rb.AddForceAtPosition(forceDirn, forcePosn, ForceMode.Force);
+        Rb.AddRelativeTorque(new Vector3(leanV, 0, 0), LeanMode);
+        Rb.AddForceAtPosition(forceDirn, forcePosn, LeanMode);
         
         if (leanH != 0 || leanV != 0)
             Debug.Log("Lean H: " + leanH.ToString("N3") + " , V: " + leanV.ToString("N3"));
