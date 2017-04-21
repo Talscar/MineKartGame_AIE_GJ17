@@ -114,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1460316976607850}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.29, y: 1.0330048, z: -0.03}
+  m_LocalPosition: {x: 1.36, y: 0, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4698578258333520}
@@ -145,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1370664653478782}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.26, y: 1.0330048, z: -0.03}
+  m_LocalPosition: {x: 1.36, y: 0, z: 0.01}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 4698578258333520}
@@ -158,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759104481100578}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 1.26, y: 1.0330048, z: 0.01}
+  m_LocalPosition: {x: 1.36, y: 0, z: 0.01}
   m_LocalScale: {x: 0.9999998, y: 1, z: 0.9999998}
   m_Children: []
   m_Father: {fileID: 4698578258333520}
@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1083550881722040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.29, y: 1.033, z: 0.18}
+  m_LocalPosition: {x: 1.36, y: 0, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4698578258333520}
@@ -239,7 +239,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.97363085, b: 0.61764705, a: 1}
   m_Intensity: 3.22
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 71
   m_CookieSize: 10
   m_Shadows:
@@ -273,7 +273,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.97363085, b: 0.61764705, a: 1}
   m_Intensity: 3.22
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 71
   m_CookieSize: 10
   m_Shadows:
@@ -307,7 +307,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.97363085, b: 0.61764705, a: 1}
   m_Intensity: 3.22
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 71
   m_CookieSize: 10
   m_Shadows:
@@ -341,7 +341,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.97363085, b: 0.61764705, a: 1}
   m_Intensity: 3.22
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 71
   m_CookieSize: 10
   m_Shadows:
