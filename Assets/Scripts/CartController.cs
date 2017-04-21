@@ -41,8 +41,6 @@ public class CartController : MonoBehaviour {
     void Start() {
         Rb = GetComponent<Rigidbody>();
         InitialDrag = Rb.drag;
-        Rb.Cons
-
     }
 
     void Update() {
