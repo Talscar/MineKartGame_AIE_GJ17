@@ -12,6 +12,7 @@ ModelImporter:
     2300000: SAM_Track_STRIGHT_01_001:polySurface600
     3300000: SAM_Track_STRIGHT_01_001:polySurface600
     4300000: SAM_Track_STRIGHT_01_001:polySurface600
+    6400000: SAM_Track_STRIGHT_01_001:polySurface600
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,7 +39,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 0.1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
