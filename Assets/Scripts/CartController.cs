@@ -6,7 +6,9 @@ using UnityEngine;
 public class CartController : MonoBehaviour {
 
     public GameObject JumpPrefab;
-    public GameObject LootCartPrefab;
+    //public GameObject LootCartPrefab;
+    public GameObject BrakeEffect;
+
 
     public float ConstantForce = 1.0f;
 
@@ -50,7 +52,7 @@ public class CartController : MonoBehaviour {
 
 
         if (jump >= 0.5 && !IsJumping) {
-            var trigger = Instantiate(JumpPrefab, gameObject.transform.TransformPoint(new Vector3(-10, 0, 0)), new Quaternion());
+            var trigger = Instantiate(JumpPrefab, gameObject.transform.TransformPoint(new Vector3(13, 4, 0)), new Quaternion());
             Destroy(trigger, 1000);
         }
 
@@ -61,6 +63,8 @@ public class CartController : MonoBehaviour {
         if (cull >= 0.5) {
             SpawnLootCart(new Vector3());
         }
+
+        BrakeEffect.SetActive(CurrentBrake != 0);
     }
 
     // Update is called once per frame
@@ -82,8 +86,8 @@ public class CartController : MonoBehaviour {
         var forceDirn = transform.TransformDirection(new Vector3(0, 0, leanH));
 
 
-        //Rb.AddRelativeTorque(new Vector3(leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
-        Rb.AddRelativeForce(new Vector3(0, 0, leanH * 2)); // Move Left/Right
+        Rb.AddRelativeTorque(new Vector3(leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
+        Rb.AddRelativeForce(new Vector3(-leanV, 0, leanH)); // Move Left/Right
 
         if (leanH != 0 || leanV != 0)
             Debug.Log("Lean H: " + leanH.ToString("N3") + " , V: " + leanV.ToString("N3"));
@@ -99,7 +103,7 @@ public class CartController : MonoBehaviour {
         if (CurrentBrake != 0)
             Debug.Log("Brake: " + CurrentBrake.ToString("N3"));
 
-
+        
 
 
 
@@ -132,20 +136,20 @@ public class CartController : MonoBehaviour {
     }
 
     public void SpawnLootCart(Vector3 posn) {
-        if (LeadLootCart != null) // Detach cart to allow room
-        {
-            var hitch = LeadLootCart.GetComponent<SpringJoint>();
-            if (hitch != null)
-                Destroy(hitch);
+        //if (LeadLootCart != null) // Detach cart to allow room
+        //{
+        //    var hitch = LeadLootCart.GetComponent<SpringJoint>();
+        //    if (hitch != null)
+        //        Destroy(hitch);
 
-        } else {
+        //} else {
 
-            var cart = Instantiate(LootCartPrefab, posn, transform.rotation);
+        //    var cart = Instantiate(LootCartPrefab, posn, transform.rotation);
 
-            var hitch = LeadLootCart.AddComponent<SpringJoint>();
-            hitch.anchor = new Vector3(0, 0, -1);
-            hitch.connectedAnchor = new Vector3(0, 0, 1);
-            hitch.connectedBody = cart.GetComponent<Rigidbody>();
-        }
+        //    var hitch = LeadLootCart.AddComponent<SpringJoint>();
+        //    hitch.anchor = new Vector3(0, 0, -1);
+        //    hitch.connectedAnchor = new Vector3(0, 0, 1);
+        //    hitch.connectedBody = cart.GetComponent<Rigidbody>();
+        //}
     }
 }

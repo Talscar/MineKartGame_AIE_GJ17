@@ -165,10 +165,10 @@ GameObject:
   - component: {fileID: 4818706800799006}
   - component: {fileID: 54772884580353498}
   - component: {fileID: 114515196618975224}
-  - component: {fileID: 145628760938081146}
+  - component: {fileID: 145377677534268604}
   m_Layer: 0
   m_Name: Loot Cart
-  m_TagString: Untagged
+  m_TagString: Trailing Cart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -728,7 +728,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!145 &145628760938081146
+--- !u!145 &145377677534268604
 SpringJoint:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

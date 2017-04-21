@@ -29,9 +29,9 @@ public class TriggeredJump : MonoBehaviour {
 
         CartController.IsJumping = true;
         IsJumping = true;
-        Rb.AddRelativeForce(new Vector3(0, CartController.MassModifier * CartController.MaxJump, 0), ForceMode.Acceleration);
+        Rb.AddRelativeForce(new Vector3(0, CartController.MaxJump, 0), ForceMode.Acceleration);
 
-        //Debug.Log("Hit Jump Trigger");
+        Debug.Log("Hit Jump Trigger");
     }
 
     void OnCollisionEnter() {
