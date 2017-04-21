@@ -24,6 +24,12 @@ public class itemCollection_Bop : MonoBehaviour {
 
 	}
 	
+    ////void Update()
+    ////{
+     
+
+    ////    //thisObject.Rotate(thisObject.rotation.x, thisObject.transform.rotation.y + (rateOfMovement[1] * Time.deltaTime), thisObject.rotation.z);
+    ////}
 	// Update is called once per frame
 	void FixedUpdate ()
     {
@@ -58,14 +64,12 @@ public class itemCollection_Bop : MonoBehaviour {
             }
 
         }
-        thisObject.Rotate(thisObject.rotation.x, thisObject.transform.rotation.y + rateOfMovement[1], thisObject.rotation.z);
-
         //if(thisObject.position.y > thisTransformsRange[1])
         //   {
         //       //transform down -transform
         //   }
 
 
-
+        transform.eulerAngles += Vector3.up * rateOfMovement[1];
     }
 }
