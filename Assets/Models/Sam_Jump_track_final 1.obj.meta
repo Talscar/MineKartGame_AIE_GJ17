@@ -12,6 +12,7 @@ ModelImporter:
     2300000: jump_track
     3300000: jump_track
     4300000: jump_track
+    6400000: jump_track
   materials:
     importMaterials: 1
     materialName: 0
