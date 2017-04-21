@@ -19,7 +19,8 @@ public class Score : MonoBehaviour {
         text = scoretextDisplay.GetComponent<Text>();
         scoretext = "Score: " + currentScore;
         text.text = scoretext;
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,5 +34,8 @@ public class Score : MonoBehaviour {
     {
         currentScore = currentScore + addscore;
         rb.drag = rb.drag + massToAdd;
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
+        //audio.PlayDelayed(44100);
     }
 }
