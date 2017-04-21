@@ -6,7 +6,9 @@ using UnityEngine;
 public class CartController : MonoBehaviour {
 
     public GameObject JumpPrefab;
+    public GameObject LootCartPrefab;
 
+    public float ConstantForce = 1.0f;
 
     public bool InvertSideLean = false;
     public bool InvertFwdLean = false;
@@ -20,9 +22,11 @@ public class CartController : MonoBehaviour {
 
     public float MaxMass = 4;
 
+    public GameObject LeadLootCart;
+
     Rigidbody Rb { get; set; }
-    
-    public float MassModifier { get { return  Mathf.SmoothStep(0.5f, 2.0f, Rb.mass / MaxMass); } }
+
+    public float MassModifier { get { return Mathf.SmoothStep(0.5f, 2.0f, Rb.mass / MaxMass); } }
 
     float InitialDrag { get; set; }
 
@@ -30,36 +34,39 @@ public class CartController : MonoBehaviour {
 
     public float CurrentBrake { get; protected set; }
 
-	// Use this for initialization
-	void Start () {
+    
+
+
+    // Use this for initialization
+    void Start() {
         Rb = GetComponent<Rigidbody>();
         InitialDrag = Rb.drag;
+        Rb.Cons
 
-	}
+    }
 
-    void Update()
-    {
+    void Update() {
         // Jump
 
         var jump = Input.GetAxisRaw("Jump");
 
 
-        if (jump >= 0.5  && !IsJumping)
-        {
-            //IsJumping = true;
-
-            //Rb.AddRelativeForce(new Vector3(0, MassModifier * MaxJump, 0), ForceMode.Impulse);
-
-            var trigger = Instantiate(JumpPrefab, transform.TransformPoint(new Vector3(0, 0, -3)), new Quaternion());
+        if (jump >= 0.5 && !IsJumping) {
+            var trigger = Instantiate(JumpPrefab, gameObject.transform.TransformPoint(new Vector3(-10, 0, 0)), new Quaternion());
             Destroy(trigger, 1000);
+        }
 
-            //Debug.Log("Hybrid says, \"Jump!\" @ " + transform.TransformPoint(new Vector3(0, 0, -4)) + " from " + transform.position);
+        // Cull Loot Cart
 
+        var cull = Input.GetAxisRaw("Cull");
+
+        if (cull >= 0.5) {
+            SpawnLootCart(new Vector3());
         }
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate() {
 
         // Check Velocity > 0 or DIE
         if (Rb.velocity.sqrMagnitude < float.Epsilon)
@@ -74,12 +81,12 @@ public class CartController : MonoBehaviour {
         if (InvertFwdLean) leanV *= -1;
 
         var forcePosn = transform.TransformPoint(new Vector3(0, 1, 0));
-        var forceDirn = transform.TransformDirection(new Vector3(leanH, 0, 0));
+        var forceDirn = transform.TransformDirection(new Vector3(0, 0, leanH));
 
 
-        Rb.AddRelativeTorque(new Vector3(leanV, 0, 0), LeanMode);
-        Rb.AddForceAtPosition(forceDirn, forcePosn, LeanMode);
-        
+        //Rb.AddRelativeTorque(new Vector3(leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
+        Rb.AddRelativeForce(new Vector3(0, 0, leanH * 2)); // Move Left/Right
+
         if (leanH != 0 || leanV != 0)
             Debug.Log("Lean H: " + leanH.ToString("N3") + " , V: " + leanV.ToString("N3"));
 
@@ -96,23 +103,51 @@ public class CartController : MonoBehaviour {
 
 
 
-        
 
-	}
 
-    void OnCollisionEnter(Collision col)
-    {
+    }
+
+    void OnCollisionEnter(Collision col) {
 
 
     }
 
 
-    void OnCollisionStay(Collision col)
-    {
+    void OnCollisionStay(Collision col) {
     }
 
-    void OnCollisionExit(Collision col)
-    {
+    void OnCollisionExit(Collision col) {
     }
-    
+
+    void OnTriggerExit(Collider col) {
+        if ( col.gameObject == LeadLootCart) {
+            // Loot Cart cleared space, Spawn Cart
+            var offset = transform.position - LeadLootCart.transform.position;
+            offset.Scale(new Vector3(0.5f, 0.5f, 0.5f));
+
+            var posn = transform.position - offset;
+            var cart = Instantiate(JumpPrefab);
+
+            cart.GetComponent<SpringJoint>().connectedBody = Rb;
+            LeadLootCart.GetComponent<SpringJoint>().connectedBody = cart.GetComponent<Rigidbody>();
+        }
+    }
+
+    public void SpawnLootCart(Vector3 posn) {
+        if (LeadLootCart != null) // Detach cart to allow room
+        {
+            var hitch = LeadLootCart.GetComponent<SpringJoint>();
+            if (hitch != null)
+                Destroy(hitch);
+
+        } else {
+
+            var cart = Instantiate(LootCartPrefab, posn, transform.rotation);
+
+            var hitch = LeadLootCart.AddComponent<SpringJoint>();
+            hitch.anchor = new Vector3(0, 0, -1);
+            hitch.connectedAnchor = new Vector3(0, 0, 1);
+            hitch.connectedBody = cart.GetComponent<Rigidbody>();
+        }
+    }
 }
