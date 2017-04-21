@@ -16,9 +16,10 @@ public class CartController : MonoBehaviour {
     public bool InvertFwdLean = false;
 
 
-    public float MaxLean = 2;
-    public ForceMode LeanMode = ForceMode.Acceleration;
-    public float MaxBrake = 0.5f;
+    public float MaxLeanAngle = 45;
+    public float MaxLeanForce = 2;
+    private ForceMode LeanMode = ForceMode.Acceleration;
+    public float MaxBrakeForce = 0.5f;
 
     public float MaxJump = 5;
 
@@ -52,7 +53,10 @@ public class CartController : MonoBehaviour {
 
 
         if (jump >= 0.5 && !IsJumping) {
-            var trigger = Instantiate(JumpPrefab, gameObject.transform.TransformPoint(new Vector3(13, 4, 0)), new Quaternion());
+
+            var offset = Rb.velocity;
+            
+            var trigger = Instantiate(JumpPrefab, transform.position + Rb.velocity, new Quaternion());
             Destroy(trigger, 1000);
         }
 
@@ -76,8 +80,8 @@ public class CartController : MonoBehaviour {
 
 
         // Lean
-        var leanH = -MaxLean * MassModifier * Input.GetAxis("Horizontal");
-        var leanV = -MaxLean * MassModifier * Input.GetAxis("Vertical");
+        var leanH = -MaxLeanForce * MassModifier * Input.GetAxis("Horizontal");
+        var leanV = -MaxLeanForce * MassModifier * Input.GetAxis("Vertical");
 
         if (InvertSideLean) leanH *= -1;
         if (InvertFwdLean) leanV *= -1;
@@ -85,8 +89,19 @@ public class CartController : MonoBehaviour {
         var forcePosn = transform.TransformPoint(new Vector3(0, 1, 0));
         var forceDirn = transform.TransformDirection(new Vector3(0, 0, leanH));
 
+        var tilt = Mathf.Acos(Vector3.Dot(transform.TransformDirection(new Vector3(0, 0, 1)), Vector3.up)) - (Mathf.PI / 2.0f);
 
-        Rb.AddRelativeTorque(new Vector3(leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
+        
+
+        if (false && Mathf.Abs(tilt) > (MaxLeanAngle * Mathf.PI / 180)) {
+            Debug.Log("Tilt!!!" + (tilt * 180.0 / Mathf.PI).ToString("N3") + " > " + (MaxLeanAngle * Mathf.PI / 180));
+            Rb.AddRelativeTorque(new Vector3(-leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
+        } else
+            Rb.AddRelativeTorque(new Vector3(leanH, 0, leanV), LeanMode); // Lean Left/Right, Forward/Back
+        
+
+
+        
         Rb.AddRelativeForce(new Vector3(-leanV, 0, leanH)); // Move Left/Right
 
         if (leanH != 0 || leanV != 0)
@@ -96,7 +111,7 @@ public class CartController : MonoBehaviour {
 
         // Brake
 
-        CurrentBrake = MaxBrake * Input.GetAxis("Brake");
+        CurrentBrake = MaxBrakeForce * Input.GetAxis("Brake");
 
         Rb.drag = Mathf.Max(InitialDrag, CurrentBrake);
 

@@ -15,6 +15,7 @@ public class TriggeredJump : MonoBehaviour {
     // Use this for initialization
     void Start() {
         Rb = GetComponent<Rigidbody>();
+        IsJumping = false;
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class TriggeredJump : MonoBehaviour {
 
         CartController.IsJumping = true;
         IsJumping = true;
-        Rb.AddRelativeForce(new Vector3(0, CartController.MaxJump, 0), ForceMode.Acceleration);
+        Rb.AddRelativeForce(new Vector3(0, CartController.MaxJump * Rb.mass, 0), ForceMode.Impulse);
 
         Debug.Log("Hit Jump Trigger");
     }
